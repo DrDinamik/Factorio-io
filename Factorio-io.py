@@ -3,11 +3,16 @@ import pygame
 # import os
 import time
 
-recipes = {'basicFurnace': {'ironPlate': [60, ['ironOre', 'coal']], 'copperPlate': [60, ['copperOre', 'coal']],
-                            'SteelBeam': [320, ['ironPlate', 'coal']]},
-           'steelFurnace': {'ironPlate': [30, ['ironOre', 'coal']], 'copperPlate': [30, ['copperOre', 'coal']],
-                            'SteelBeam': [160, ['ironPlate', 'coal']]},
-           'basicCrafter': {'copperCable': [10, ['copperPlate']], 'ironRod': [10, ['ironPlate']],
+recipes = {'basicFurnace': {
+                            'ironPlate': [60, ['ironOre', 'coal']], 'copperPlate': [60, ['copperOre', 'coal']],
+                            'SteelBeam': [320, ['ironPlate', 'coal']], 'stoneBrick': [60, ['stone', 'coal']]
+                            },
+           'steelFurnace': {
+                            'ironPlate': [30, ['ironOre', 'coal']], 'copperPlate': [30, ['copperOre', 'coal']],
+                            'SteelBeam': [160, ['ironPlate', 'coal']], 'stoneBrick': [30, ['stone', 'coal']]
+                            },
+           'basicCrafter': {
+                            'copperCable': [10, ['copperPlate']], 'ironRod': [10, ['ironPlate']],
                             'ironGear': [10, ['ironPlate', 'ironPlate']],
                             'electronicCircuit': [10, ['copperCable', 'copperCable', 'copperCable', 'ironPlate']],
                             'advancedCircuit': [120, ['copperCable', 'copperCable', 'copperCable', 'copperCable',
@@ -18,11 +23,107 @@ recipes = {'basicFurnace': {'ironPlate': [60, ['ironOre', 'coal']], 'copperPlate
                                                  'electronicCircuit', 'electronicCircuit', 'SteelBeam']],
                             'lowDensityStructure': [400, ['copperPlate', 'copperPlate', 'copperPlate', 'copperPlate',
                                                           'copperPlate', 'plasticBar', 'plasticBar', 'plasticBar',
-                                                          'plasticBar', 'plasticBar', 'SteelBeam', 'SteelBeam']]
+                                                          'plasticBar', 'plasticBar', 'SteelBeam', 'SteelBeam']],
+                            'basicDrill': [40, ['ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                'ironPlate', 'ironPlate', 'basicFurnace']],
+                            'eDrill': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit', 'ironGear',
+                                            'ironGear', 'ironGear', 'ironPlate', 'ironPlate', 'ironPlate']],
+                            'pipe': [10, ['ironPlate']],
+                            'oilRig': [40, ['ironGear', 'ironGear', 'ironGear', 'ironPlate', 'ironPlate', 'ironPlate',
+                                            'electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                            'SteelBeam', 'SteelBeam', 'SteelBeam']],
+                            'basicFurnace': [40, ['stone', 'stone', 'stone', 'stone', 'stone']],
+                            'steelFurnace': [40, ['stoneBrick', 'stoneBrick', 'stoneBrick',
+                                                  'SteelBeam', 'SteelBeam', 'SteelBeam']],
+                            'basicCrafter': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                  'ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                  'ironPlate', 'ironPlate']],
+                            'advancedCrafter': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                     'ironGear', 'ironGear', 'ironGear', 'SteelBeam',
+                                                     'SteelBeam', 'basicCrafter']],
+                            'refinery': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                              'electronicCircuit', 'electronicCircuit', 'SteelBeam', 'SteelBeam',
+                                              'SteelBeam', 'SteelBeam', 'SteelBeam', 'ironGear', 'ironGear',
+                                              'ironGear', 'ironGear', 'ironGear', 'pipe', 'pipe', 'pipe', 'pipe',
+                                              'pipe', 'stoneBrick', 'stoneBrick', 'stoneBrick',
+                                              'stoneBrick', 'stoneBrick']],
+                            'chemicalPlant': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                   'electronicCircuit', 'electronicCircuit', 'SteelBeam', 'SteelBeam',
+                                                   'SteelBeam', 'SteelBeam', 'SteelBeam', 'ironGear', 'ironGear',
+                                                   'ironGear', 'ironGear', 'ironGear', 'pipe', 'pipe',
+                                                   'pipe', 'pipe', 'pipe']]
                             },
-           'advancedCrafter': [1], 'basicDrill': [0.5], 'eDrill': [1],
-           'oilRig': [1], 'refinery': [1], 'chemicalPlant': [1],
-           'inventoryCrafting': {'copperCable': [10, ['copperPlate']], 'ironRod': [10, ['ironPlate']],
+           'advancedCrafter': {
+                               'copperCable': [10, ['copperPlate']], 'ironRod': [10, ['ironPlate']],
+                               'ironGear': [10, ['ironPlate', 'ironPlate']],
+                               'electronicCircuit': [10, ['copperCable', 'copperCable', 'copperCable', 'ironPlate']],
+                               'advancedCircuit': [120, ['copperCable', 'copperCable', 'copperCable', 'copperCable',
+                                                         'electronicCircuit', 'electronicCircuit',
+                                                         'plasticBar', 'plasticBar']],
+                               'engineUnit': [200, ['ironGear', 'pipe', 'pipe', 'SteelBeam']],
+                               'robotFrame': [400, ['battery', 'battery', 'electricEngineUnit', 'electronicCircuit',
+                                                    'electronicCircuit', 'electronicCircuit', 'SteelBeam']],
+                               'lowDensityStructure': [400, ['copperPlate', 'copperPlate', 'copperPlate', 'copperPlate',
+                                                             'copperPlate', 'plasticBar', 'plasticBar', 'plasticBar',
+                                                             'plasticBar', 'plasticBar', 'SteelBeam', 'SteelBeam']],
+                               'basicDrill': [40, ['ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                   'ironPlate', 'ironPlate', 'basicFurnace']],
+                               'eDrill': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                               'ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                               'ironPlate', 'ironPlate']],
+                               'pipe': [10, ['ironPlate']],
+                               'oilRig': [40, ['ironGear', 'ironGear', 'ironGear', 'ironPlate', 'ironPlate',
+                                               'ironPlate', 'electronicCircuit', 'electronicCircuit',
+                                               'electronicCircuit', 'SteelBeam', 'SteelBeam', 'SteelBeam']],
+                               'basicFurnace': [40, ['stone', 'stone', 'stone', 'stone', 'stone']],
+                               'steelFurnace': [40, ['stoneBrick', 'stoneBrick', 'stoneBrick',
+                                                     'SteelBeam', 'SteelBeam', 'SteelBeam']],
+                               'basicCrafter': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                     'ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                     'ironPlate', 'ironPlate']],
+                               'advancedCrafter': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                        'ironGear', 'ironGear', 'ironGear', 'SteelBeam',
+                                                        'SteelBeam', 'basicCrafter']],
+                               'refinery': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                 'electronicCircuit', 'electronicCircuit', 'SteelBeam', 'SteelBeam',
+                                                 'SteelBeam', 'SteelBeam', 'SteelBeam', 'ironGear', 'ironGear',
+                                                 'ironGear', 'ironGear', 'ironGear', 'pipe', 'pipe', 'pipe', 'pipe',
+                                                 'pipe', 'stoneBrick', 'stoneBrick', 'stoneBrick',
+                                                 'stoneBrick', 'stoneBrick']],
+                               'chemicalPlant': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                      'electronicCircuit', 'electronicCircuit', 'SteelBeam',
+                                                      'SteelBeam', 'SteelBeam', 'SteelBeam', 'SteelBeam', 'ironGear',
+                                                      'ironGear', 'ironGear', 'ironGear', 'ironGear', 'pipe',
+                                                      'pipe', 'pipe', 'pipe', 'pipe']],
+                               'processingUnit': [40, ['electronicCircuit', 'electronicCircuit', 'advancedCircuit',
+                                                       'advancedCircuit', 'sulfuricAcid', 'sulfuricAcid']],
+                               'rocketControlUnit': [600, ['processingUnit']],
+                               'electricEngineUnit': [100, ['engineUnit', 'electronicCircuit', 'electronicCircuit',
+                                                            'lubricant', 'lubricant']]
+                               },
+           'basicDrill': {
+                          'coal': [20, []], 'ironOre': [20, ['coal']], 'copperOre': [20, ['coal']],
+                          'uraniumOre': [20, ['coal', 'sulfuricAcid']], 'stone': [10, ['coal']]
+                          },
+           'eDrill': {
+                      'coal': [10, []], 'ironOre': [10, []], 'copperOre': [10, []],
+                      'uraniumOre': [10, ['sulfuricAcid']], 'stone': [10, []]
+                      },
+           'oilRig': {
+                      'crudeOil': [10, ['coal']]
+                      },
+           'refinery': {
+                        'heavyOil': [10, ['crudeOil']], 'lightOil': [10, ['crudeOil']],
+                        'petroleumGas': [10, ['crudeOil']]
+                        },
+           'chemicalPlant': {
+                             'lubricant': [10, ['heavyOil']], 'sulfur': [10, ['water', 'petroleumGas']],
+                             'sulfuricAcid': [10, ['ironPlate', 'sulfur', 'water']],
+                             'plasticBar': [10, ['coal', 'petroleumGas']],
+                             'battery': [10, ['ironPlate', 'copperPlate', 'sulfuricAcid']]
+                             },
+           'inventoryCrafting': {
+                                 'copperCable': [10, ['copperPlate']], 'ironRod': [10, ['ironPlate']],
                                  'ironGear': [10, ['ironPlate', 'ironPlate']],
                                  'electronicCircuit': [10, ['copperCable', 'copperCable', 'copperCable', 'ironPlate']],
                                  'advancedCircuit': [120, ['copperCable', 'copperCable', 'copperCable', 'copperCable',
@@ -31,10 +132,41 @@ recipes = {'basicFurnace': {'ironPlate': [60, ['ironOre', 'coal']], 'copperPlate
                                  'engineUnit': [200, ['ironGear', 'pipe', 'pipe', 'SteelBeam']],
                                  'robotFrame': [400, ['battery', 'battery', 'electricEngineUnit', 'electronicCircuit',
                                                       'electronicCircuit', 'electronicCircuit', 'SteelBeam']],
-                                 'lowDensityStructure': [400,
-                                                         ['copperPlate', 'copperPlate', 'copperPlate', 'copperPlate',
-                                                          'copperPlate', 'plasticBar', 'plasticBar', 'plasticBar',
-                                                          'plasticBar', 'plasticBar', 'SteelBeam', 'SteelBeam']]}}
+                                 'lowDensityStructure': [400, ['copperPlate', 'copperPlate', 'copperPlate',
+                                                               'copperPlate', 'copperPlate', 'plasticBar',
+                                                               'plasticBar', 'plasticBar', 'plasticBar', 'plasticBar',
+                                                               'SteelBeam', 'SteelBeam']],
+                                 'basicDrill': [40, ['ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                     'ironPlate', 'ironPlate', 'basicFurnace']],
+                                 'eDrill': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                 'ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                 'ironPlate', 'ironPlate']],
+                                 'pipe': [10, ['ironPlate']],
+                                 'oilRig': [40, ['ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                 'ironPlate', 'ironPlate', 'electronicCircuit',
+                                                 'electronicCircuit', 'electronicCircuit',
+                                                 'SteelBeam', 'SteelBeam', 'SteelBeam']],
+                                 'basicFurnace': [40, ['stone', 'stone', 'stone', 'stone', 'stone']],
+                                 'steelFurnace': [40, ['stoneBrick', 'stoneBrick', 'stoneBrick',
+                                                       'SteelBeam', 'SteelBeam', 'SteelBeam']],
+                                 'basicCrafter': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                       'ironGear', 'ironGear', 'ironGear', 'ironPlate',
+                                                       'ironPlate', 'ironPlate']],
+                                 'advancedCrafter': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                          'ironGear', 'ironGear', 'ironGear', 'SteelBeam',
+                                                          'SteelBeam', 'basicCrafter']],
+                                 'refinery': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                   'electronicCircuit', 'electronicCircuit', 'SteelBeam', 'SteelBeam',
+                                                   'SteelBeam', 'SteelBeam', 'SteelBeam', 'ironGear', 'ironGear',
+                                                   'ironGear', 'ironGear', 'ironGear', 'pipe', 'pipe', 'pipe', 'pipe',
+                                                   'pipe', 'stoneBrick', 'stoneBrick', 'stoneBrick',
+                                                   'stoneBrick', 'stoneBrick']],
+                                 'chemicalPlant': [40, ['electronicCircuit', 'electronicCircuit', 'electronicCircuit',
+                                                        'electronicCircuit', 'electronicCircuit', 'SteelBeam',
+                                                        'SteelBeam', 'SteelBeam', 'SteelBeam', 'SteelBeam',
+                                                        'ironGear', 'ironGear', 'ironGear', 'ironGear',
+                                                        'ironGear', 'pipe', 'pipe', 'pipe', 'pipe', 'pipe']]
+                                 }}
 
 FileNamesOfItems = {'coal': 'data/items/32px-Coal.png', 'copperOre': 'data/items/32px-Copper_ore.png',
                     'ironOre': 'data/items/32px-Iron_ore.png',
@@ -68,10 +200,11 @@ FileNamesOfItems = {'coal': 'data/items/32px-Coal.png', 'copperOre': 'data/items
                     'basicFurnace': 'data/machines/basicFurnace.png',
                     'chemicalPlant': 'data/machines/chemicalPlant.png',
                     'eDrill': 'data/machines/eDrill.png', 'oilRig': 'data/machines/oilRig.png',
-                    'refinery': 'data/machines/refinery.png', 'steelFurnace': 'data/machines/steelFurnace.png'}
+                    'refinery': 'data/machines/refinery.png', 'steelFurnace': 'data/machines/steelFurnace.png',
+                    'stoneBrick': 'data/items/stoneBrick.png'}
 # '':'data/items/.png'
 
-exceptions = ['coal', 'copperOre', 'ironOre', 'stone', 'uraniumOre', 'production', 'logistics', 'intermediate-products']
+exceptions = ['production', 'logistics', 'intermediate-products']
 
 machines = {'basicFurnace': [], 'steelFurnace': [], 'basicCrafter': [],
             'advancedCrafter': [], 'basicDrill': [], 'eDrill': [],
@@ -241,11 +374,16 @@ class Item(pygame.sprite.Sprite):
         self.quantity = quantity
         self.image = pygame.image.load(FileNamesOfItems[self.item_name]).convert_alpha()
         self.image = pygame.transform.scale(self.image, (int(32 * scale_x), int(32 * scale_y)))
+        # self.text = TextForItems((self.x + 5) * scale_x, (self.y + 15) * scale_y, self.quantity)
         self.rect = self.image.get_rect().move(self.x, self.y)
 
     def addToSlot(self, quantity):
         if self.quantity + quantity >= 0:
             self.quantity += quantity
+            # if self.quantity >= 1000:
+            #     self.text.changeText('999+')
+            # else:
+            #     self.text.changeText(self.quantity)
 
     def getItemName(self):
         return self.item_name
@@ -259,18 +397,21 @@ class Item(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(self.x * scale_x, self.y * scale_y)
 
 
-class TextForItems(pygame.sprite.Sprite):
-    def __init__(self, x, y, text):
-        super().__init__(intermediate_products_sprites, Item_text_sprites)
-        self.x = x
-        self.y = y
-        self.text = text
-        font = pygame.font.Font('data/fonts/Lato-Bold.ttf', (self.x, self.y))
-        text = font.render(text, True, color)
-        screen.blit(text, (x, y))
-
-    def changeText(self, text):
-        self.text = text
+# class TextForItems(pygame.sprite.Sprite):
+#     def __init__(self, x, y, text):
+#         super().__init__(intermediate_products_sprites, Item_text_sprites)
+#         self.x = x
+#         self.y = y
+#         self.text = text
+#         self.font = pygame.font.Font('data/fonts/Lato-Bold.ttf', int(4 * scale_x))
+#         self.word = self.font.render(self.text, True, color_palette[2])
+#         screen.blit(text, (self.x, self.y))
+#
+#     def changeText(self, text):
+#         self.text = text
+#         self.font = pygame.font.Font('data/fonts/Lato-Bold.ttf', int(4 * scale_x))
+#         self.word = self.font.render(self.text, True, color_palette[2])
+#         screen.blit(text, (self.x, self.y))
 
 
 class Cell(pygame.sprite.Sprite):
@@ -369,6 +510,14 @@ class Button(pygame.sprite.Sprite):
             self.is_pressed = True
             self.img.resize()
 
+    def unpress(self):
+        self.image = pygame.image.load('data/UI/Button.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (int(self.kind[self.cell_name][0] * scale_x),
+                                                         int(self.kind[self.cell_name][1] * scale_y)))
+        self.rect = self.image.get_rect().move(self.x * scale_x, self.y * scale_y)
+        self.is_pressed = False
+        self.img.resize()
+
     def resize(self):
         self.image = pygame.transform.scale(self.image, (int(self.kind[self.cell_name][0] * scale_x),
                                                          int(self.kind[self.cell_name][1] * scale_y)))
@@ -406,6 +555,8 @@ scale_x = width / 1920
 scale_y = height / 1080
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 running = True
+r_button_is_pressed = False
+added_machine = ''
 UI_sprites = pygame.sprite.Group()
 Item_sprites = pygame.sprite.Group()
 Cell_sprites = pygame.sprite.Group()
@@ -415,7 +566,7 @@ intermediate_products_sprites = pygame.sprite.Group()
 Item_text_sprites = pygame.sprite.Group()
 Buttons_sprites = pygame.sprite.Group()
 renderabel = 'intermediate-products'
-inventory = Inventory(100, 100, [('ironPlate', 10), ('ironPlate', 20), ('lightOil', 10), ('copperPlate', 10)])
+inventory = Inventory(100, 100, [('coal', 100), ('basicDrill', 8)])
 button_kinds = ['logistics', 'production', 'intermediate-products', 'craft']
 Button(10, 700, 'logistics', button_kinds[0])
 Button(260, 700, 'production', button_kinds[1])
@@ -431,7 +582,7 @@ for item in FileNamesOfItems:
             local_x = 960
             local_y += 40
 del local_x, local_y
-allCafters = [InventoryCrafter('inventoryCrafting', ''), Crafter('basicCrafter', 'copperCable')]
+allCafters = [InventoryCrafter('inventoryCrafting', '')]
 pygame.mixer.music.load('data/music/65daysofstatic - Tomorrow Lull Celestial Feedback lowQ.mp3')
 pygame.mixer.music.play()
 # screen = pygame.display.set_mode(size, pygame.FULLSCREEN, 32)
@@ -455,15 +606,32 @@ while running:
                     screen = pygame.display.set_mode(size, pygame.RESIZABLE)
                     full_size = True
         elif e.type == pygame.MOUSEBUTTONDOWN:
-            for item in Buttons_sprites:
-                if item.rect.collidepoint(e.pos):
-                    if item.getCellName() in button_kinds and item.getCellName() != 'craft':
-                        renderabel = button_kinds[button_kinds.index(item.getItemName())]
-                        item.press()
-                    elif item.getCellName() == 'craft':
-                        print(item.getItemName())
-                        allCafters[0].addRecipe(str(item.getItemName()))
-                        item.press()
+            if e.button == 1 and not r_button_is_pressed:
+                for item in Buttons_sprites:
+                    if item.rect.collidepoint(e.pos):
+                        if item.getCellName() in button_kinds and item.getCellName() != 'craft':
+                            renderabel = button_kinds[button_kinds.index(item.getItemName())]
+                            item.press()
+                        elif item.getCellName() == 'craft':
+                            allCafters[0].addRecipe(str(item.getItemName()))
+                            item.press()
+                        elif item.getCellName() != 'craft':
+                            item.unpress()
+            elif e.button == 3:
+                loc_x = e.pos[0]
+                loc_y = e.pos[1]
+                r_button_is_pressed = True
+                for item in Item_sprites:
+                    if item.rect.collidepoint(e.pos) and item.getItemName() in machines:
+                        added_machine = item.getItemName()
+            elif e.button == 1 and r_button_is_pressed:
+                for item in Interface_sprites:
+                    if item.rect.collidepoint(e.pos):
+                        allCafters.append(Crafter(added_machine, item.getItemName()))
+                        inventory.addItem(added_machine, -1)
+        elif e.type == pygame.MOUSEBUTTONUP:
+            if e.button == 3:
+                r_button_is_pressed = False
         elif e.type == pygame.MOUSEMOTION:
             for item in Lightable_sprites:
                 if item.rect.collidepoint(e.pos):
